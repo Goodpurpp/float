@@ -109,16 +109,18 @@ function addition(first, second) {
         sum = String((amount + dop) % 2) + sum;
         dop = Math.floor((amount + dop) / 2);
     }
-    if (dop == 1) {
+    if (dop >= 1) {
+        if (gain == 1);
+        else sum = '0' + sum.slice(0, 23);
         gain++;
-        sum = '00' + sum.slice(1, 22);
-
     }
-    if (gain == 1) {
+
+    if (gain >= 1) {
         return first[0] + toBinWhole(binToDec(first.slice(1, 9))+128) + sum;
     }
     return first.slice(0,9) + sum;
 }
+
 
 function subtraction(first, second) {
     let gain = -1;
@@ -145,10 +147,14 @@ function subtraction(first, second) {
             i++;
             gain--;
         }
+        if (orders[0] == orders[1]) {
+            i++;
+        }
         diff = diff.slice(i, 31) + '0'.repeat(i);
+
     }
     let tempOrder = toBinWhole(binToDec(first.slice(1, 9)) +  127 + gain);
-    let sign = (string[0] > string[2]) ? '0' : '1';
+    let sign = (Math.abs(string[0]) > string[2]) ? '0' : '1';
     return sign + '0'.repeat(8 - tempOrder.length) + tempOrder + diff;
 }
 let result = '';
