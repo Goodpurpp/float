@@ -154,7 +154,7 @@ function subtraction(first, second) {
 
     }
     let tempOrder = toBinWhole(binToDec(first.slice(1, 9)) +  127 + gain);
-    let sign = (Math.abs(string[0]) > string[2]) ? '0' : '1';
+    let sign = (string[0] > string[2]) ? '0' : '1';
     return sign + '0'.repeat(8 - tempOrder.length) + tempOrder + diff;
 }
 let result = '';
