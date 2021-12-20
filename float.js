@@ -111,7 +111,7 @@ function addition(first, second) {
     }
     if (dop >= 1) {
         if (gain == 1);
-        else sum = '0' + sum.slice(0, 23);
+        else sum = '0' + sum.slice(0, 22);
         gain++;
     }
 
