@@ -11,7 +11,7 @@ function call(number) {
     } else {
         fractional = 0;
     }
-
+    frac.push(fractional);
     let wholeBin = toBinWhole(whole);
     let lenWholeBin = wholeBin.length;
 
@@ -77,7 +77,7 @@ function toDecFloat(conversion) {
     let sign = conversion[0];
     let order = binToDec(orderBin);
     let mantissa = 0;
-    two = 0.5;
+    let two = 0.5;
     for (let i = 0; i < mantissaBin.length; i++) {
         mantissa += Number(mantissaBin[i]) * two;
         two *= 0.5
@@ -111,7 +111,7 @@ function addition(first, second) {
     }
     if (dop >= 1) {
         if (gain == 1);
-        else sum = '0' + sum.slice(0, 22);
+        else sum = '0' + sum.slice(0, 23);
         gain++;
     }
 
@@ -120,7 +120,6 @@ function addition(first, second) {
     }
     return first.slice(0,9) + sum;
 }
-
 
 function subtraction(first, second) {
     let gain = -1;
@@ -160,17 +159,12 @@ function subtraction(first, second) {
 let result = '';
 let arg=process.argv;
 let fs = require('fs')
-let data = fs.readFileSync(arg[2], "utf8")
+let data = fs.readFileSync(arg[2],"utf8")
 let string = data.split(' ');
 let order;
 let orders = [];
-if(arg[3]=='conv') {
-    let answer = call(Number(string[0]));
-    console.log(answer);
-}
-
-
-else if(arg[3]=='calc') {
+let frac=[];
+if (arg[3]=="calc") {
     if (string[1] == '-') {
         string[2] *= -1;
     }
@@ -180,8 +174,8 @@ else if(arg[3]=='calc') {
             string[1] = '+';
         }
     }
-
     let first = call(Number(string[0]));
+    string[0] = String(string[0]);
     let second = call(Number(string[2]));
     let answer;
 
@@ -196,5 +190,21 @@ else if(arg[3]=='calc') {
         result += answer + '\n';
     }
     result += String(toDecFloat(answer));
+    console.log(result)
+}
+else if(arg[3]=="conv"){
+    let result = call(Number(string[0]));
     console.log(result);
 }
+/*
+Тесты:
+-8 + 9
+9 - 8
+-3.125 - 8
+9 - 1.8
+-9 - 3.5
+2922 - 9.2
+3.1 + 16.07
+-3.1 - 16.07
+1+ 1.1823939
+ */
