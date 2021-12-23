@@ -45,7 +45,14 @@ function toBinFraction (fractional, lenWholeBin) {
             fractional = Number('0.' + String(fractional*2).split('.')[1]);
             if (isNaN(fractional)) break;
         }
-    } else fractionalBin = '0'.repeat(24-lenWholeBin)
+    } else {
+        if (lenWholeBin > 24) {
+            fractionalBin = '';
+            return fractionalBin;
+        } else {
+            fractionalBin = '0'.repeat(24-lenWholeBin)
+        }
+    }
     fractionalBin += '0'.repeat(24 - lenWholeBin - fractionalBin.length)
     return fractionalBin;
 }
@@ -58,6 +65,7 @@ function assembling(sign, orderBin, wholeBin, fractionalBin) {
     } else {
         float += fractionalBin.slice(1, fractionalBin.length);
     }
+    float = float.slice(0, 32);
     return float;
 }
 
@@ -77,7 +85,7 @@ function toDecFloat(conversion) {
     let sign = conversion[0];
     let order = binToDec(orderBin);
     let mantissa = 0;
-    let two = 0.5;
+    two = 0.5;
     for (let i = 0; i < mantissaBin.length; i++) {
         mantissa += Number(mantissaBin[i]) * two;
         two *= 0.5
@@ -207,4 +215,7 @@ else if(arg[3]=="conv"){
 3.1 + 16.07
 -3.1 - 16.07
 1+ 1.1823939
+340282340000000000000000000 + 1
+-340282340000000000000000000 + 19
+10
  */
